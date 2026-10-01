@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#071422" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="K&R Capital" />
+  <title>K & R Capital Partners</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@340;460;560&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #e8eef6;
+      --muted: #9aabc0;
+      --navy: #071422;
+      --navy-2: #10243a;
+      --card: #12283f;
+      --line: rgba(212, 175, 106, 0.35);
+      --gold: #d4af6a;
+      --gold-2: #f0d7a2;
+      --safe-b: env(safe-area-inset-bottom, 0px);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--navy); color: var(--ink); font-family: Outfit, sans-serif; }
+    body { min-height: 100dvh; }
+    button, input, select, textarea { font-family: inherit; }
+    .app { max-width: 480px; margin: 0 auto; min-height: 100dvh; padding-bottom: calc(84px + var(--safe-b)); }
+    header.top {
+      position: sticky; top: 0; z-index: 5;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px 12px;
+      background: rgba(7, 20, 34, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(212, 175, 106, 0.16);
+    }
+    .brand { display: flex; gap: 10px; align-items: center; }
+    .brand img { width: 36px; height: 36px; border-radius: 8px; }
+    .brand strong { display: block; font-family: "Cormorant Garamond", serif; font-size: 18px; letter-spacing: 0.02em; font-weight: 600; }
+    .brand span { display: block; color: var(--muted); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .lang {
+      border: 1px solid var(--line); background: transparent; color: var(--gold-2);
+      border-radius: 999px; padding: 6px 10px; font-size: 12px;
+    }
+    main { padding: 18px; }
+    .hero {
+      background:
+        radial-gradient(120% 80% at 100% 0%, rgba(212,175,106,0.18), transparent 50%),
+        linear-gradient(180deg, #14304c, #0c1d30);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 22px 18px 18px;
+    }
+    .kicker { color: var(--gold); letter-spacing: 0.16em; text-transform: uppercase; font-size: 11px; margin: 0 0 8px; }
+    h1, h2, h3 { font-family: "Cormorant Garamond", serif; font-weight: 600; margin: 0; }
+    h1 { font-size: 34px; line-height: 1.05; }
+    .lede { color: #d5deea; font-size: 15px; line-height: 1.45; margin: 12px 0 16px; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .stat { background: rgba(7,20,34,0.45); border-radius: 12px; padding: 10px 8px; text-align: center; }
+    .stat b { display: block; color: var(--gold-2); font-size: 14px; }
+    .stat span { color: var(--muted); font-size: 11px; }
+    .row { display: flex; gap: 8px; margin-top: 14px; }
+    .btn {
+      appearance: none; border: 0; border-radius: 12px; padding: 12px 14px;
+      font-size: 14px; font-weight: 560; cursor: pointer; text-decoration: none; text-align: center;
+    }
+    .btn.gold { background: linear-gradient(180deg, #f0d7a2, #d4af6a); color: #1a1408; flex: 1; }
+    .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); flex: 1; }
+    .section-title { margin: 22px 0 10px; font-size: 26px; }
+    .card {
+      background: var(--card); border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px; padding: 14px; margin-bottom: 10px;
+    }
+    .card h3 { font-size: 22px; }
+    .meta { color: var(--gold); font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; margin: 4px 0 8px; }
+    .card p { margin: 0; color: #d5deea; font-size: 14px; line-height: 1.4; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .chip { font-size: 12px; color: #d7e3f2; background: rgba(7,20,34,0.55); border-radius: 999px; padding: 5px 8px; }
+    .linkish { color: var(--gold-2); font-size: 13px; text-decoration: none; display: inline-block; margin-top: 10px; }
+    label { display: block; font-size: 12px; color: var(--muted); margin: 10px 0 6px; }
+    input, select, textarea {
+      width: 100%; background: #0c1c2e; color: var(--ink); border: 1px solid rgba(212,175,106,0.25);
+      border-radius: 12px; padding: 12px; font-size: 15px;
+    }
+    textarea { min-height: 90px; resize: vertical; }
+    .result {
+      margin-top: 12px; padding: 14px; border-radius: 14px;
+      background: #0c1c2e; border: 1px solid var(--line);
+    }
+    .result b { font-size: 28px; font-family: "Cormorant Garamond", serif; color: var(--gold-2); }
+    .fine { color: var(--muted); font-size: 12px; line-height: 1.45; margin-top: 14px; }
+    nav.tab {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 6;
+      background: rgba(8, 18, 31, 0.96);
+      border-top: 1px solid rgba(212,175,106,0.2);
+      display: flex; justify-content: space-around;
+      padding: 8px 8px calc(8px + var(--safe-b));
+    }
+    nav.tab button {
+      background: transparent; color: var(--muted); border: 0; font-size: 11px; letter-spacing: 0.04em;
+      padding: 6px 8px; min-width: 68px;
+    }
+    nav.tab button.active { color: var(--gold-2); }
+    .view { display: none; }
+    .view.active { display: block; }
+    .banner {
+      margin: 12px 18px 0; background: #17324d; border: 1px solid var(--line); border-radius: 14px;
+      padding: 12px; display: none; align-items: center; justify-content: space-between; gap: 8px;
+    }
+    .banner p { margin: 0; font-size: 13px; }
+    .toast {
+      position: fixed; left: 18px; right: 18px; bottom: calc(86px + var(--safe-b));
+      background: #f0d7a2; color: #1a1408; border-radius: 12px; padding: 12px; display: none; font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <div class="brand">
+        <img src="icons/icon-192.png" alt="K and R mark" />
+        <div>
+          <strong>K & R Capital</strong>
+          <span data-i="broker">Commercial loan broker</span>
+        </div>
+      </div>
+      <button class="lang" id="langBtn" type="button">ES</button>
+    </header>
+    <div class="banner" id="installBanner">
+      <p data-i="installHint">Add this app to your home screen.</p>
+      <button class="btn gold" id="installBtn" type="button" style="flex:0">Install</button>
+    </div>
+    <main>
+      <section class="view active" id="home">
+        <div class="hero">
+          <p class="kicker" data-i="kicker">Commercial capital</p>
+          <h1 data-i="headline">Financing selected to fit the property.</h1>
+          <p class="lede" data-i="lede">We structure the file and place it with lending partners whose programs fit the transaction. A broker, not a bank.</p>
+          <div class="stats">
+            <div class="stat"><b>$100k–$50M+</b><span data-i="loanSize">Loan size</span></div>
+            <div class="stat"><b>50</b><span data-i="states">States</span></div>
+            <div class="stat"><b data-i="bilingualStat">EN / ES</b><span data-i="advisors">Advisors</span></div>
+          </div>
+          <div class="row">
+            <button class="btn gold" type="button" data-go="consult" data-i="consult">Request consultation</button>
+            <button class="btn ghost" type="button" data-go="programs" data-i="programsBtn">Programs</button>
+          </div>
+        </div>
+        <h2 class="section-title" data-i="how">From first call to closing</h2>
+        <article class="card"><h3>1</h3><p class="meta" data-i="step1t">Share the deal</p><p data-i="step1">Property, timeline, and what the capital needs to do.</p></article>
+        <article class="card"><h3>2</h3><p class="meta" data-i="step2t">Match the structure</p><p data-i="step2">We compare programs across a national lending network.</p></article>
+        <article class="card"><h3>3</h3><p class="meta" data-i="step3t">Carry it through</p><p data-i="step3">The same team stays on the file through closing.</p></article>
+        <p class="fine" data-i="disclaimer">K & R Capital Partners, LLC is a commercial loan broker. We do not lend our own capital. Programs, rates, terms, timelines, and eligibility vary. Nothing here is an approval or a commitment to lend. Office hours Monday–Friday, 9:00 AM–5:00 PM Central.</p>
+      </section>
+
+      <section class="view" id="programs">
+        <h2 class="section-title" data-i="programsTitle">Loan programs</h2>
+        <div id="programList"></div>
+        <p class="fine" data-i="rateNote">Published figures are starting ranges from kandrcapitalpartners.com, not a committed rate.</p>
+      </section>
+
+      <section class="view" id="estimate">
+        <h2 class="section-title" data-i="estTitle">Payment sketch</h2>
+        <p class="lede" data-i="estLede">A planning figure only. Your file is priced by the lender that fits it.</p>
+        <label data-i="amount">Loan amount</label>
+        <input id="amount" inputmode="decimal" value="1500000" />
+        <label data-i="rate">Annual rate %</label>
+        <input id="rate" inputmode="decimal" value="8.5" />
+        <label data-i="term">Term (months)</label>
+        <input id="term" inputmode="numeric" value="12" />
+        <label data-i="style">Payment style</label>
+        <select id="style">
+          <option value="io" data-i="io">Interest only</option>
+          <option value="am" data-i="am">Amortizing</option>
+        </select>
+        <button class="btn gold" id="calcBtn" type="button" style="width:100%; margin-top:14px" data-i="calc">Estimate payment</button>
+        <div class="result" id="result" hidden>
+          <div data-i="monthly">Estimated monthly</div>
+          <b id="payment">—</b>
+          <p class="fine" id="payNote"></p>
+        </div>
+      </section>
+
+      <section class="view" id="consult">
+        <h2 class="section-title" data-i="consultTitle">Free consultation</h2>
+        <p class="lede" data-i="consultLede">This opens an email to the office with the details filled in. No obligation.</p>
+        <form id="consultForm">
+          <label data-i="name">Name</label>
+          <input name="name" required />
+          <label data-i="email">Email</label>
+          <input name="email" type="email" required />
+          <label data-i="phone">Phone</label>
+          <input name="phone" type="tel" />
+          <label data-i="program">Program</label>
+          <select name="program" id="programSelect"></select>
+          <label data-i="deal">Deal notes</label>
+          <textarea name="notes" data-i-ph="notesPh" placeholder="Property type, location, amount, timeline"></textarea>
+          <button class="btn gold" type="submit" style="width:100%; margin-top:14px" data-i="send">Email the office</button>
+        </form>
+        <p class="fine">info@kandrcapitalpartners.com · <a class="linkish" href="https://www.kandrcapitalpartners.com/consult">kandrcapitalpartners.com/consult</a></p>
+      </section>
+    </main>
+  </div>
+  <nav class="tab">
+    <button type="button" data-go="home" class="active" data-i="tabHome">Home</button>
+    <button type="button" data-go="programs" data-i="tabPrograms">Programs</button>
+    <button type="button" data-go="estimate" data-i="tabEstimate">Estimate</button>
+    <button type="button" data-go="consult" data-i="tabConsult">Consult</button>
+  </nav>
+  <div class="toast" id="toast"></div>
+  <script>
+    const programs = [
+      { id: "fix", name: "Fix & Flip", fit: "Renovation financing", figure: "Rates from 7.2% · up to $5M", url: "https://www.kandrcapitalpartners.com/loan-programs/fix-and-flip" },
+      { id: "hard", name: "Hard Money", fit: "Asset-based financing", figure: "Priced per file · from $100k", url: "https://www.kandrcapitalpartners.com/loan-programs/hard-money" },
+      { id: "dscr", name: "DSCR", fit: "Rental income qualifying", figure: "Rates from 5.4% · up to 80% LTV", url: "https://www.kandrcapitalpartners.com/loan-programs/dscr" },
+      { id: "ground", name: "Ground-Up Construction", fit: "New build financing", figure: "85% of cost + 100% · up to $5M", url: "https://www.kandrcapitalpartners.com/loan-programs/ground-up-construction" },
+      { id: "bridge", name: "Bridge", fit: "Short-term capital", figure: "$1M–$50M+ · 7–10 business days", url: "https://www.kandrcapitalpartners.com/loan-programs/bridge" },
+      { id: "purchase", name: "Commercial Purchase", fit: "Purchase and acquisition", figure: "Contract-driven · from $100k", url: "https://www.kandrcapitalpartners.com/loan-programs/commercial-purchase" },
+      { id: "refi", name: "Commercial Refinance", fit: "Rate-and-term or cash-out", figure: "Stabilized assets · nationwide", url: "https://www.kandrcapitalpartners.com/loan-programs/commercial-refinance" },
+      { id: "land", name: "Land", fit: "Lots and pad sites", figure: "50%–65% LTV · rates 12%–14%", url: "https://www.kandrcapitalpartners.com/loan-programs/land" }
+    ];
+
+    const copy = {
+      en: {
+        broker: "Commercial loan broker", kicker: "Commercial capital",
+        headline: "Financing selected to fit the property.",
+        lede: "We structure the file and place it with lending partners whose programs fit the transaction. A broker, not a bank.",
+        loanSize: "Loan size", states: "States", advisors: "Advisors", bilingualStat: "EN / ES",
+        consult: "Request consultation", programsBtn: "Programs", how: "From first call to closing",
+        step1t: "Share the deal", step1: "Property, timeline, and what the capital needs to do.",
+        step2t: "Match the structure", step2: "We compare programs across a national lending network.",
+        step3t: "Carry it through", step3: "The same team stays on the file through closing.",
+        disclaimer: "K & R Capital Partners, LLC is a commercial loan broker. We do not lend our own capital. Programs, rates, terms, timelines, and eligibility vary. Nothing here is an approval or a commitment to lend. Office hours Monday–Friday, 9:00 AM–5:00 PM Central.",
+        programsTitle: "Loan programs", rateNote: "Published figures are starting ranges from kandrcapitalpartners.com, not a committed rate.",
+        estTitle: "Payment sketch", estLede: "A planning figure only. Your file is priced by the lender that fits it.",
+        amount: "Loan amount", rate: "Annual rate %", term: "Term (months)", style: "Payment style",
+        io: "Interest only", am: "Amortizing", calc: "Estimate payment", monthly: "Estimated monthly",
+        consultTitle: "Free consultation", consultLede: "This opens an email to the office with the details filled in. No obligation.",
+        name: "Name", email: "Email", phone: "Phone", program: "Program", deal: "Deal notes",
+        notesPh: "Property type, location, amount, timeline", send: "Email the office",
+        tabHome: "Home", tabPrograms: "Programs", tabEstimate: "Estimate", tabConsult: "Consult",
+        installHint: "Add this app to your home screen.", openSite: "Open on site"
+      },
+      es: {
+        broker: "Corredor de préstamos comerciales", kicker: "Capital comercial",
+        headline: "Financiamiento a la medida de la propiedad.",
+        lede: "Estructuramos el expediente y lo colocamos con socios cuyos programas encajan con la operación. Somos corredores, no un banco.",
+        loanSize: "Monto", states: "Estados", advisors: "Asesores", bilingualStat: "EN / ES",
+        consult: "Consulta gratis", programsBtn: "Programas", how: "De la primera llamada al cierre",
+        step1t: "Cuéntenos el trato", step1: "Propiedad, plazo y para qué se necesita el capital.",
+        step2t: "Elegimos la estructura", step2: "Comparamos programas en una red nacional de prestamistas.",
+        step3t: "Lo llevamos al cierre", step3: "El mismo equipo sigue el expediente hasta el cierre.",
+        disclaimer: "K & R Capital Partners, LLC es un corredor de préstamos comerciales. No prestamos capital propio. Programas, tasas, plazos y elegibilidad varían. Nada aquí es una aprobación ni un compromiso de préstamo. Horario lunes a viernes, 9:00 AM–5:00 PM Centro.",
+        programsTitle: "Programas", rateNote: "Las cifras publicadas son rangos iniciales de kandrcapitalpartners.com, no una tasa comprometida.",
+        estTitle: "Boceto de pago", estLede: "Solo para planear. El expediente lo cotiza el prestamista que corresponda.",
+        amount: "Monto del préstamo", rate: "Tasa anual %", term: "Plazo (meses)", style: "Tipo de pago",
+        io: "Solo interés", am: "Amortizado", calc: "Estimar pago", monthly: "Mensual estimado",
+        consultTitle: "Consulta gratis", consultLede: "Esto abre un correo a la oficina con los datos. Sin obligación.",
+        name: "Nombre", email: "Correo", phone: "Teléfono", program: "Programa", deal: "Notas del trato",
+        notesPh: "Tipo de propiedad, ubicación, monto, plazo", send: "Enviar a la oficina",
+        tabHome: "Inicio", tabPrograms: "Programas", tabEstimate: "Pago", tabConsult: "Consulta",
+        installHint: "Agregue esta app a su pantalla de inicio.", openSite: "Ver en el sitio"
+      }
+    };
+
+    let lang = localStorage.getItem("kr-lang") || "en";
+    const $ = (id) => document.getElementById(id);
+
+    function t(key) { return copy[lang][key] || key; }
+
+    function applyLang() {
+      document.querySelectorAll("[data-i]").forEach((el) => { el.textContent = t(el.dataset.i); });
+      document.querySelectorAll("[data-i-ph]").forEach((el) => { el.placeholder = t(el.dataset.iPh); });
+      $("langBtn").textContent = lang === "en" ? "ES" : "EN";
+      document.documentElement.lang = lang;
+      renderPrograms();
+    }
+
+    function renderPrograms() {
+      $("programList").innerHTML = programs.map((p) => `
+        <article class="card">
+          <h3>${p.name}</h3>
+          <div class="meta">${p.fit}</div>
+          <p>${p.figure}</p>
+          <a class="linkish" href="${p.url}" target="_blank" rel="noopener">${t("openSite")}</a>
+        </article>`).join("");
+      $("programSelect").innerHTML = programs.map((p) => `<option value="${p.name}">${p.name}</option>`).join("");
+    }
+
+    function show(view) {
+      document.querySelectorAll(".view").forEach((el) => el.classList.toggle("active", el.id === view));
+      document.querySelectorAll("nav.tab button").forEach((el) => el.classList.toggle("active", el.dataset.go === view));
+      window.scrollTo(0, 0);
+    }
+
+    document.querySelectorAll("[data-go]").forEach((el) => el.addEventListener("click", () => show(el.dataset.go)));
+    $("langBtn").addEventListener("click", () => {
+      lang = lang === "en" ? "es" : "en";
+      localStorage.setItem("kr-lang", lang);
+      applyLang();
+    });
+
+    $("calcBtn").addEventListener("click", () => {
+      const amount = Number($("amount").value.replace(/[^0-9.]/g, ""));
+      const rate = Number($("rate").value) / 100;
+      const months = Number($("term").value);
+      if (!amount || !rate || !months) return;
+      let payment;
+      if ($("style").value === "io") payment = amount * rate / 12;
+      else {
+        const r = rate / 12;
+        payment = amount * r / (1 - Math.pow(1 + r, -months));
+      }
+      $("payment").textContent = payment.toLocaleString("en-US", { style: "currency", currency: "USD" });
+      $("payNote").textContent = t("rateNote");
+      $("result").hidden = false;
+    });
+
+    $("consultForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(event.target).entries());
+      const body = [
+        `Name: ${data.name}`,
+        `Email: ${data.email}`,
+        `Phone: ${data.phone || "—"}`,
+        `Program: ${data.program}`,
+        "",
+        data.notes || ""
+      ].join("\n");
+      const url = `mailto:info@kandrcapitalpartners.com?subject=${encodeURIComponent("Consultation request — " + data.program)}&body=${encodeURIComponent(body)}`;
+      localStorage.setItem("kr-last-consult", JSON.stringify({ ...data, at: new Date().toISOString() }));
+      window.location.href = url;
+      const toast = $("toast");
+      toast.textContent = lang === "es" ? "Abriendo su correo…" : "Opening your email…";
+      toast.style.display = "block";
+      setTimeout(() => { toast.style.display = "none"; }, 2400);
+    });
+
+    let deferredPrompt;
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferredPrompt = event;
+      $("installBanner").style.display = "flex";
+    });
+    $("installBtn").addEventListener("click", async () => {
+      if (!deferredPrompt) {
+        $("toast").textContent = "On iPhone: Share, then Add to Home Screen.";
+        $("toast").style.display = "block";
+        return;
+      }
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      $("installBanner").style.display = "none";
+    });
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    }
+
+    applyLang();
+  </script>
+</body>
+</html>
