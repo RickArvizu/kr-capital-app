@@ -1,4 +1,4 @@
-const CACHE = "kr-capital-v1";
+const CACHE = "kr-capital-v2";
 const ASSETS = [
   "./",
   "./index.html",
